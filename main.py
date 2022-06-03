@@ -1,4 +1,5 @@
 #data
+import os
 import random
 wordlist = ['informatica', 'informatiekunde', 'spelletje', 'aardigheidje', 'scholier', 'fotografie', 'waardebepaling', 'specialiteit', 'verzekering', 'universiteit', 'heesterperk']
 goed = [] 
@@ -15,20 +16,26 @@ print("je hebt " + str(pogingen) + " pogingen over")
 word = random.choice(wordlist)
 resterende_geraden = ""
 
-for i in range(len(word)):
-  blanks.append('_')
+def printword():
+  printword = []
+  for l in list(word):
+    if l in goed:
+      printword.append(l)
+    else:
+      printword.append('_')
+  print(' '.join(printword))
+      
+def systemclear():
+   os.system("clear")
 
-blanks = '_' * len(word)
 
-for i in range(len(word)): 
-  if word[i] in goed:
-    blanks = blanks[:i] + word[i] + blanks[i+1:]
+
   
 #code voor input
 while True:
-  print(blanks)
   answer = input()
   controle = word.find(answer)
+  
 
   if answer in goed:
     print ("je hebt deze letter al gegokt, probeer het opnieuw")
@@ -38,21 +45,28 @@ while True:
 
   elif len(answer) != 1:
     print("er is maar 1 letter mogelijk te gokken")
-    break #tijdelijke functie
+    
     
   elif controle == -1:
     fout.append(answer)
     print(fout)
     print(str(answer) + " zat niet in het woord. Je foute letters zijn " + str(fout))
     pogingen -= 1
+    printword()
     
   elif controle != -1:
     goed.append(answer)
-    print(str(answer) + " zat in het woord. Je goede letters zijn " + str(goed)) #verander dit wanneer de letter in de letterinwoord werkt
+    print(str(answer) + " zat in het woord.") 
+    printword()
   
   if pogingen == 0:
-    print("je hebt verloren hahaha") #verander dit nog ff
+    print("Geen pogingen meer, je hebt verloren") 
     break
+    
   print("je hebt nog " + str(pogingen) + " pogingen over")
 
-
+print("wil je nog een keer spelen? y/n")
+if input() == "y":
+  
+else:
+  print("bedankt voor het spelen")
